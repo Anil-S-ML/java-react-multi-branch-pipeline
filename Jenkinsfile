@@ -4,7 +4,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven 3.9'   // Make sure 'Maven' is configured in Jenkins global tools
+        maven 'maven 3.9'   // Make sure 'Maven' is configured in Jenkins global tools
     }
 
     environment {
