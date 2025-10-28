@@ -3,7 +3,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.7.0'
+    classpath 'org.springframework.boot:spring-boot-gradle-plugin:3.5.7'
   }
 }
 
@@ -22,11 +22,11 @@ java {
 
 dependencies {
   implementation(
-      "org.springframework.boot:spring-boot-starter-web:2.7.0",
-      "org.springframework.boot:spring-boot-devtools:2.7.0"
+      "org.springframework.boot:spring-boot-starter-web:3.5.7",
+      "org.springframework.boot:spring-boot-devtools:3.5.7"
   )
   testImplementation(
-      "org.springframework.boot:spring-boot-starter-test:2.7.0",
+      "org.springframework.boot:spring-boot-starter-test:3.5.7",
       "org.spockframework:spock-spring:2.1-groovy-3.0"
   )
 }
