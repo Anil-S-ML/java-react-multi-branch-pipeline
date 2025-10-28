@@ -1,5 +1,6 @@
 package com.coditorium.sandbox
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -12,6 +13,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = RANDOM_PORT)
+@EnableAutoConfiguration
 abstract class IntegrationSpec extends Specification {
   @Autowired
   WebApplicationContext webApplicationContext
