@@ -1,32 +1,47 @@
+@Library('jenkins-shared-library@master') _
+
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven'   // Make sure 'Maven' is configured in Jenkins global tools
+    }
+
+    environment {
+        IMAGE_NAME = 'anil2469/applisting:java-maven-1.0'
+    }
+
     stages {
-        stage('Build') {
+
+        stage('Build Application') {
             steps {
-                echo '🏗️ Building the application...'
+                echo 'Building application JAR...'
+                buildJar()  // assumes buildJar() is defined in your shared library
             }
         }
 
-        stage('Test') {
-            steps {
-                echo '🧪 Running tests...'
-            }
-        }
-
-        stage('Deploy') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    // Docker command to run on the remote EC2 server
-                    def dockerCmd = 'sudo docker run -p 3080:3080 -d anil2469/applisting:react-2.0'
+                    echo 'Building the Docker image...'
+                    buildImage(env.IMAGE_NAME)   // buildImage() from shared library
+                    dockerLogin()                // login to Docker registry
+                    dockerPush(env.IMAGE_NAME)  // push image to Docker registry
+                }
+            }
+        }
 
-                    // Use Jenkins SSH credentials
+        stage('Deploy to EC2') {
+            steps {
+                script {
+                    echo 'Deploying Docker image to EC2...'
+                    def dockerCmd = "docker run -p 3080:3080 -d ${IMAGE_NAME}"
                     sshagent(['ec2-server-key']) {
-                        // Run the Docker command on remote EC2 server
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@13.233.251.217 '${dockerCmd}'"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@18.184.54.160 '${dockerCmd}'"
                     }
                 }
             }
         }
-    }
+
+    } // end stages
 }
