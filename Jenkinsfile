@@ -17,6 +17,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo '🚀 Deploying the application...'
+                echo '🚀 Checking  the application...'
+
             }
         }
     }
