@@ -16,7 +16,7 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building application JAR...'
-                buildJar()  // assumes buildJar() is defined in your shared library
+                buildJar()  
             }
         }
 
@@ -24,9 +24,9 @@ pipeline {
             steps {
                 script {
                     echo 'Building the Docker image...'
-                    buildImage(env.IMAGE_NAME)   // buildImage() from shared library
-                    dockerLogin()                // login to Docker registry
-                    dockerPush(env.IMAGE_NAME)  // push image to Docker registry
+                    buildImage(env.IMAGE_NAME)   
+                    dockerLogin()                
+                    dockerPush(env.IMAGE_NAME)  
                 }
             }
         }
@@ -43,5 +43,5 @@ pipeline {
             }
         }
 
-    } // end stages
+    } 
 }
