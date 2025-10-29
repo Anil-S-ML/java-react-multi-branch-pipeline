@@ -6,7 +6,6 @@ pipeline {
         stage('Build Application') {
             steps {
                 echo 'Building application JAR...'
-                buildJar()  
             }
         }
 
